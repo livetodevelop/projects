@@ -1,0 +1,15 @@
+# Screenshot Cleanup Shortcut
+# iOS 17 - finds old screenshots and lets you delete them
+
+1. Get All Photos (Media Type: Screenshots)
+2. Filter Photos (Date Created < 30 days ago)
+3. If No Photos Found:
+   - Show "No old screenshots!"
+4. Otherwise:
+   - Select Photos (Show in grid)
+   - For each selected photo:
+     - Delete Photo (after confirmation)
+5. Show Result: "Cleaned up X screenshots"
+
+# Note: You need to give this shortcut permission to access photos
+# First time it runs, iOS will ask for Full Access

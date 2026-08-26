@@ -1,0 +1,27 @@
+# CleanWhite Theme for 3DS
+# made with Anemone3DS
+
+Theme Name: CleanWhite
+Author: me
+Version: 1.0
+
+[COLORS]
+Background = #F5F5F5
+Text = #1A1A1A
+Accent = #666666
+Highlight = #888888
+Button_BG = #E0E0E0
+Button_Text = #000000
+
+[SETTINGS]
+Font = System
+Sound = Off
+Animation = None
+
+[NOTES]
+- light gray/white background
+- black text, high contrast
+- very minimal, no fancy graphics
+- good for daytime use
+
+install with Anemone3DS by putting this folder in /themes/ on SD card

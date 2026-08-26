@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+<key>WFWorkflowActions</key>
+<array>
+<dict>
+<key>ActionIdentifier</key>
+<string>is.workflow.actions.timer.start</string>
+<key>Parameters</key>
+<dict>
+<key>Duration</key>
+<integer>1500</integer>
+</dict>
+</dict>
+<dict>
+<key>ActionIdentifier</key>
+<string>is.workflow.actions.focus.set</string>
+<key>Parameters</key>
+<dict>
+<key>FocusMode</key>
+<string>Do Not Disturb</string>
+<key>TurnOn</key>
+<true/>
+</dict>
+</dict>
+<dict>
+<key>ActionIdentifier</key>
+<string>is.workflow.actions.appendnote</string>
+<key>Parameters</key>
+<dict>
+<key>NoteName</key>
+<string>Homework Sessions</string>
+<key>Text</key>
+<string>Completed Pomodoro: %CurrentDate%</string>
+</dict>
+</dict>
+</array>
+<key>WorkflowName</key>
+<string>Homework Timer</string>
+<key>Description</key>
+<string>25 min focus timer with DND and logging</string>
+</dict>
+</plist>

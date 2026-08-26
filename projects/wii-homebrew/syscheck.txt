@@ -1,0 +1,24 @@
+SysCheck HDE v2.4.0 by HermEs
+
+[SYSTEM]
+Console Type: Wii
+Console Region: USA
+System Menu: 4.3U
+Priiloader: v0.8
+Homebrew Channel: 1.1.2
+
+[DRIVES]
+IOS58 (USB): v6176 (OK)
+IOS249: d2x-v10-beta52 base57
+IOS250: d2x-v10-beta52 base56
+
+[BOOT]
+Boot1: v4
+Boot2: v4
+Trucha Bug: YES
+ES Identify Patch: YES
+NAND Access: YES
+
+[REPORT]
+Date: 2024-01-15
+Note: Made backup before installing anything!

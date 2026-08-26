@@ -1,0 +1,35 @@
+# USB Loader GX Config
+
+[GENERAL]
+Theme = Minimal_Black
+Language = English
+Video_Mode = Auto
+Aspect_Ratio = 16:9
+
+[PATHS]
+USB_Device = 0
+Game_Path = /wbfs
+Cover_Path = /covers
+Config_Path = /config
+
+[FEATURES]
+Cheat_Engine = 1
+Nintendont_Enabled = 1
+WiiVC_Enabled = 1
+GameCube_Booter = Nintendont
+
+[DISPLAY]
+Show_Titles = 1
+Show_Covers = 1
+Grid_Mode = 0
+Max_Cover_Width = 256
+
+[ADVANCED]
+Ocarina = 0
+Debug_Mode = 0
+Log_Level = 1
+
+# notes:
+# using the minimal black theme, looks cleaner
+# covers download automatically if you have internet
+# nintendont integration is clutch for GameCube games

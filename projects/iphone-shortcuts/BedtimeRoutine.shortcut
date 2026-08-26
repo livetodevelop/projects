@@ -1,0 +1,16 @@
+# Bedtime Routine Shortcut
+# runs when you're about to sleep
+
+1. Set Alarm for 7:00 AM tomorrow
+2. Set Focus Mode: Sleep (until 7:00 AM)
+3. Set Brightness to 10%
+4. Play Sound: "White Noise" (in Background)
+5. Set App Limits:
+   - Instagram: 0 hours
+   - TikTok: 0 hours  
+   - Twitter/X: 0 hours
+   - Snapchat: 0 hours
+6. Show Notification: "Good night! Phone locked until morning."
+
+# Pro tip: Add this to Automation -> When Battery Level < 20%
+# so it reminds you to go to bed when your phone is dying lol

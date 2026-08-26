@@ -1,0 +1,30 @@
+/* Dark Mode Force - works on most sites */
+/* paste this in console or use a browser extension */
+
+:root {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --link-color: #6db3f2;
+}
+
+* {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  border-color: #333 !important;
+}
+
+a {
+  color: var(--link-color) !important;
+}
+
+img, video {
+  filter: brightness(0.85) contrast(1.1) !important;
+}
+
+/* whitelist for things that look bad inverted */
+.no-dark-mode, .no-dark-mode * {
+  background-color: initial !important;
+  color: initial !important;
+}
+
+/* usage: add class="no-dark-mode" to elements that break */

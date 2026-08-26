@@ -1,0 +1,27 @@
+# MonoBlue Theme for 3DS
+# made with Anemone3DS
+
+Theme Name: MonoBlue
+Author: me
+Version: 1.0
+
+[COLORS]
+Background = #2D2D2D
+Text = #E0E0E0
+Accent = #4A90D9
+Highlight = #5A9FE9
+Button_BG = #3D3D3D
+Button_Text = #FFFFFF
+
+[SETTINGS]
+Font = System
+Sound = Off
+Animation = Minimal
+
+[NOTES]
+- dark gray background, easy on the eyes
+- blue accent color (#4A90D9) for selections
+- no animations = faster navigation
+- works on both old and new 3DS
+
+install with Anemone3DS by putting this folder in /themes/ on SD card

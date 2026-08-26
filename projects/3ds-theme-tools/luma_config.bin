@@ -1,0 +1,30 @@
+# Luma3DS Configuration
+# exported from Rosalia Menu
+
+[AUTOBOOT]
+Autoboot_Enable = 1
+Autoboot_Target = Home_Menu
+
+[DISPLAY]
+Show_NAND_UserID = 0
+Show_GBRotations = 0
+Splash = 0
+
+[PATCHES]
+Disable_ARM11_Exceptions = 1
+Enable_Game_Patching = 1
+Redirect_App_Region_Change = 0
+Enable_UnitInfo_Patch = 0
+
+[ADVANCED]
+Force_Downgrade = 0
+Enable_BootEnv = 0
+Use_Emulated_NAND = 0
+
+[NOTES]
+- autoboot enabled so it goes straight to home menu
+- ARM11 exceptions disabled for better homebrew compatibility
+- game patching enabled for region-free games
+- no splash screen = faster boot
+
+to change these settings: hold SELECT while booting

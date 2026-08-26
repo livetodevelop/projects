@@ -1,0 +1,43 @@
+# Crosh Commands That Still Work
+
+tested on school chromebooks (admin console locked down)
+
+## working commands
+
+```
+ping <hostname>          - test if a site is blocked or just down
+tracepath <hostname>     - see the route to a server
+network_diag             - runs network diagnostics (takes forever)
+top                      - shows running processes
+ps                       - list processes
+help                     - shows all commands (some won't work though)
+clear                    - clears the screen
+exit                     - closes crosh
+```
+
+## blocked commands
+
+```
+shell                    - blocked (obviously)
+ssh                      - blocked
+vt                       - blocked
+sendtest                 - blocked
+```
+
+## how to open crosh
+
+1. Press Ctrl + Alt + T
+2. type commands above
+3. close with `exit` or just close the tab
+
+## useful tricks
+
+- `ping google.com` - if this fails, internet is blocked
+- `ping 8.8.8.8` - if this works but google.com fails, DNS is blocked
+- `tracepath netflix.com` - see where the connection gets blocked
+
+## notes
+
+crosh doesn't let you do much, but it's good for diagnosing if something is actually broken or just blocked by the admin console.
+
+also the network diag tool sometimes leaks your actual IP even on school wifi lol
