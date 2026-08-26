@@ -1,0 +1,11 @@
+{
+  "products": [
+    {
+      "name": "example keyboard",
+      "url": "https://example.com/product/keyboard",
+      "target_price": 80.00,
+      "selector": ".price-current"
+    }
+  ],
+  "discord_webhook": ""
+}

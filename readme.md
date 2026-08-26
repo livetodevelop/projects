@@ -23,6 +23,29 @@ encrypted password storage. uses aes encryption so its pretty secure. dont lose 
 ### habit-tracker
 tracks daily habits and shows streaks. made it to remind myself to practice guitar
 
+### reddit-bot
+auto-posts minecraft screenshots to reddit. crashes sometimes but works most of the time
+
+### minecraft-server-manager
+cli tool to manage my minecraft server. start/stop, backups, logs, all that
+
+### python-calculators
+bunch of calculators for math class:
+- quadratic solver
+- matrix operations (2x2, 3x3)
+- fibonacci generator
+- prime checker
+- unit converter
+
+### website-scraper
+scrapes product prices and tracks when they go on sale. sends discord notifications
+
+### arduino-projects
+hardware stuff i've been making:
+- LED strip controller with potentiometer
+- temperature/humidity logger with OLED display
+- automatic plant waterer (killed one plant already oops)
+
 ---
 
 most of this is written in python or javascript. feel free to use whatever but no guarantee anything works perfectly lol

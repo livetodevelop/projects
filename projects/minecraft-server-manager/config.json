@@ -1,0 +1,7 @@
+{
+  "server_path": "/home/user/minecraft_server",
+  "jar_file": "paper.jar",
+  "ram_mb": 4096,
+  "backup_folder": "./backups",
+  "auto_restart": true
+}
