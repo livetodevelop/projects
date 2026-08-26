@@ -31,4 +31,4 @@ mostly bored during study hall. also needed to run VS Code for a project and sch
 
 ## better alternatives
 
-honestly? just ask your teacher for permission to install stuff for class projects. most teachers don't care as long as you're actually working.
+i put something here before but... just cheat bro school aint shit anyways
