@@ -85,12 +85,36 @@
       padding-bottom: 70px;
     }
 
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0 28px;
+    }
+
+    .tab {
+      padding: 11px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .tab:hover,
+    .tab.active {
+      background: white;
+      color: black;
+    }
+
     .toolbar {
       margin: 15px 0 28px;
     }
 
     input,
-    textarea {
+    textarea,
+    select {
       width: 100%;
       padding: 15px 17px;
       border: 1px solid var(--border);
@@ -101,8 +125,14 @@
       font-size: 15px;
     }
 
+    select option {
+      background: #171719;
+      color: white;
+    }
+
     input:focus,
-    textarea:focus {
+    textarea:focus,
+    select:focus {
       border-color: #888;
     }
 
@@ -197,7 +227,7 @@
     }
 
     #generatedArray {
-      min-height: 90px;
+      min-height: 100px;
       resize: vertical;
       font-family: monospace;
       background: #0d0d0f;
@@ -262,14 +292,24 @@
   </header>
 
   <main>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="main">main</button>
+      <button class="tab" data-tab="educational games">
+        educational games
+      </button>
+      <button class="tab" data-tab="tools">tools</button>
+    </nav>
+
     <div class="toolbar">
       <input id="search" type="search" placeholder="search links...">
     </div>
 
-    <div class="section-title">links:</div>
+    <div class="section-title" id="sectionTitle">main:</div>
     <section class="links" id="links"></section>
 
-    <button class="add-link" id="addLinkButton">get link array</button>
+    <button class="add-link" id="addLinkButton">
+      get link array
+    </button>
 
     <footer>just to be clear i didnt make any of these links, i just find them</footer>
     <footer>also special thanks to leo and matthew for being cool</footer>
@@ -281,7 +321,9 @@
       <p>open this in a new tab?</p>
 
       <div class="actions">
-        <button class="cancel" id="cancel">no, i HATE good proxies</button>
+        <button class="cancel" id="cancel">
+          no, i HATE good proxies
+        </button>
         <button class="launch" id="launch">launch!</button>
       </div>
     </div>
@@ -295,7 +337,18 @@
       <div class="add-form">
         <input id="linkName" type="text" placeholder="Name">
         <input id="linkUrl" type="url" placeholder="https://example.com">
-        <textarea id="generatedArray" readonly placeholder="Generated array will appear here"></textarea>
+
+        <select id="linkTab">
+          <option value="main">main</option>
+          <option value="educational games">educational games</option>
+          <option value="tools">tools</option>
+        </select>
+
+        <textarea
+          id="generatedArray"
+          readonly
+          placeholder="Generated array will appear here"
+        ></textarea>
       </div>
 
       <div class="actions">
@@ -311,10 +364,13 @@
 
     let websites = [];
     let selectedUrl = "";
+    let selectedTab = "main";
 
     const links = document.getElementById("links");
     const modal = document.getElementById("modal");
     const search = document.getElementById("search");
+    const tabs = document.querySelectorAll(".tab");
+    const sectionTitle = document.getElementById("sectionTitle");
 
     async function loadWebsites() {
       try {
@@ -327,12 +383,11 @@
         }
 
         const rawText = await response.text();
-
         const start = rawText.indexOf("[");
         const end = rawText.lastIndexOf("]");
 
         if (start === -1 || end === -1) {
-          throw new Error("No array was found in the fetched text.");
+          throw new Error("No array was found.");
         }
 
         const arrayText = rawText.slice(start, end + 1);
@@ -360,28 +415,63 @@
     function render(filter = "") {
       links.innerHTML = "";
 
-      websites
-        .filter(site =>
-          site[0].toLowerCase().includes(filter.toLowerCase())
-        )
-        .forEach(site => {
-          const card = document.createElement("button");
-          card.className = "link-card";
+      const filteredSites = websites.filter(site => {
+        const name = String(site[0] || "").toLowerCase();
+        const tab = String(site[3] || "main").toLowerCase();
+        const searchText = filter.toLowerCase();
 
-          card.innerHTML = `
-            <div class="icon">${site[2]}</div>
-            <h3>${site[0]}</h3>
-            <p>schoolwork resource</p>
-          `;
+        return tab === selectedTab &&
+          name.includes(searchText);
+      });
 
-          card.onclick = () => {
-            selectedUrl = site[1];
-            modal.classList.add("active");
-          };
+      if (filteredSites.length === 0) {
+        links.innerHTML = `
+          <p style="color:#a2a2a8;">
+            No links found.
+          </p>
+        `;
+        return;
+      }
 
-          links.appendChild(card);
-        });
+      filteredSites.forEach(site => {
+        const card = document.createElement("button");
+        card.className = "link-card";
+
+        const icon = document.createElement("div");
+        icon.className = "icon";
+        icon.textContent = site[2] || site[0].charAt(0).toUpperCase();
+
+        const title = document.createElement("h3");
+        title.textContent = site[0];
+
+        const description = document.createElement("p");
+        description.textContent = "schoolwork resource";
+
+        card.append(icon, title, description);
+
+        card.onclick = () => {
+          selectedUrl = site[1];
+          modal.classList.add("active");
+        };
+
+        links.appendChild(card);
+      });
     }
+
+    tabs.forEach(tab => {
+      tab.onclick = () => {
+        selectedTab = tab.dataset.tab;
+
+        tabs.forEach(item => {
+          item.classList.toggle("active", item === tab);
+        });
+
+        sectionTitle.textContent = `${selectedTab}:`;
+        render(search.value);
+      };
+    });
+
+    search.oninput = () => render(search.value);
 
     document.getElementById("cancel").onclick = () => {
       modal.classList.remove("active");
@@ -423,8 +513,6 @@
       modal.classList.remove("active");
     };
 
-    search.oninput = () => render(search.value);
-
     modal.onclick = event => {
       if (event.target === modal) {
         modal.classList.remove("active");
@@ -437,14 +525,19 @@
     const closeAddModal = document.getElementById("closeAddModal");
     const linkName = document.getElementById("linkName");
     const linkUrl = document.getElementById("linkUrl");
+    const linkTab = document.getElementById("linkTab");
     const generatedArray = document.getElementById("generatedArray");
     const copyArray = document.getElementById("copyArray");
 
     developerMode.onchange = () => {
-      addLinkButton.classList.toggle("visible", developerMode.checked);
+      addLinkButton.classList.toggle(
+        "visible",
+        developerMode.checked
+      );
     };
 
     addLinkButton.onclick = () => {
+      linkTab.value = selectedTab;
       addModal.classList.add("active");
       linkName.focus();
     };
@@ -459,9 +552,17 @@
       }
     };
 
+    function escapeArrayText(value) {
+      return value
+        .replace(/\\/g, "\\\\")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n");
+    }
+
     function generateArray() {
       const name = linkName.value.trim();
       const url = linkUrl.value.trim();
+      const tab = linkTab.value;
 
       if (!name || !url) {
         generatedArray.value = "";
@@ -471,11 +572,15 @@
       const icon = name.charAt(0).toUpperCase();
 
       generatedArray.value =
-        `["${name.replace(/"/g, '\\"')}", "${url.replace(/"/g, '\\"')}", "${icon}"],`;
+        `["${escapeArrayText(name)}", ` +
+        `"${escapeArrayText(url)}", ` +
+        `"${escapeArrayText(icon)}", ` +
+        `"${escapeArrayText(tab)}"],`;
     }
 
     linkName.oninput = generateArray;
     linkUrl.oninput = generateArray;
+    linkTab.onchange = generateArray;
 
     copyArray.onclick = async () => {
       if (!generatedArray.value) return;
