@@ -292,7 +292,7 @@
   </header>
 
   <main>
-    <nav class="tabs" id="tabs">
+    <nav class="tabs">
       <button class="tab active" data-tab="main">main</button>
       <button class="tab" data-tab="educational games">
         educational games
@@ -359,87 +359,61 @@
   </div>
 
   <script>
-    const websitesUrl =
-      "https://raw.githubusercontent.com/livetodevelop/projects/refs/heads/main/projects/backendarrays";
+    const websites = [
+      ["lucide", "https://s3.amazonaws.com/googleclass/index.html", "L", "main"],
+      ["lucide 2", "https://s3.amazonaws.com/schoolsucks/index.html", "L", "main"],
+      ["lucide 3", "https://script.google.com/a/macros/fcpsschools.net/s/AKfycbw_rj7a3fmTQELYynIo1pI3wl2DmRdE81xPeuebaUSRB7OEBfvW3jl5V6dd8Vss9uxI/exec", "L", "main"],
+      ["bull-33", "https://s3.dualstack.us-east-1.amazonaws.com/jlkl/index.html?r=g", "B", "main"],
+      ["bull-33 2", "https://s3.amazonaws.com/oiop/index.html", "B", "main"],
+      ["monoxide", "https://freeram.b-cdn.net/", "M", "main"],
+      ["monoxide 2", "https://destroyeducation.b-cdn.net/", "M", "main"],
+      ["korona", "https://edu.wastedmc.net/", "K", "main"],
+      ["catclass", "https://s3.amazonaws.com/catclassgoat/index.html", "C", "main"],
+      ["gust", "https://clintissotuff.b-cdn.net/", "G", "main"],
+      ["chalkle", "https://script.google.com/a/macros/fcpsschools.net/s/AKfycbztNsd9Ko4-rutPUkkOiKJz5RoBkkkONYkJp1OCDdvRLOFRj1Fb-3COf816fPnbogoo/exec", "C", "main"],
+      ["tung tung", "https://s3.amazonaws.com/zoxh/index.html", "T", "main"],
+      ["fern", "https://s3.amazonaws.com/2027games/index.html", "F", "main"],
+      ["cineby movies", "https://cineby.ws/movies", "C", "tools"],
+      ["opstream movies (not very good)", "http://opstream.fun", "O", "tools"],
+      ["deltarune & undertale", "https://script.google.com/a/macros/fcpsschools.net/s/AKfycby9_53Lpofj0XzMEqnbPZjeS5puKZDy-OuwGx6rMW48GykAYASRckK6KWcBPztj9ag3/exec", "T", "educational games"],
+      ["minecraft 1.12", "https://script.google.com/a/macros/fcpsschools.net/s/AKfycby6hNrYFUtSWI699tVjOx87WwDg1jQH-qCZjbmttsjjA_mAotwMXww9uQvXz80Srv5p/exec", "M", "educational games"],
+      ["minecraft 1.21 (takes a while to load)", "https://htmlhoster.com/p/QY0W7PQE/", "M", "educational games"],
+      ["minecraft dragonx", "https://htmlhoster.com/p/S6G4AFSB/", "M", "educational games"],
+      ["oreate (ai)", "https://www.oreateai.com/home/index", "O", "tools"]
+    ];
 
-    let websites = [];
-    let selectedUrl = "";
     let selectedTab = "main";
+    let selectedUrl = "";
 
     const links = document.getElementById("links");
-    const modal = document.getElementById("modal");
     const search = document.getElementById("search");
-    const tabs = document.querySelectorAll(".tab");
+    const modal = document.getElementById("modal");
     const sectionTitle = document.getElementById("sectionTitle");
-
-    async function loadWebsites() {
-      try {
-        const response = await fetch(websitesUrl, {
-          cache: "no-store"
-        });
-
-        if (!response.ok) {
-          throw new Error("Could not fetch website arrays.");
-        }
-
-        const rawText = await response.text();
-        const start = rawText.indexOf("[");
-        const end = rawText.lastIndexOf("]");
-
-        if (start === -1 || end === -1) {
-          throw new Error("No array was found.");
-        }
-
-        const arrayText = rawText.slice(start, end + 1);
-
-        websites = Function(
-          `"use strict"; return (${arrayText});`
-        )();
-
-        if (!Array.isArray(websites)) {
-          throw new Error("Fetched data is not a valid array.");
-        }
-
-        render();
-      } catch (error) {
-        console.error(error);
-
-        links.innerHTML = `
-          <p style="color:#a2a2a8;">
-            Unable to load website links.
-          </p>
-        `;
-      }
-    }
+    const tabs = document.querySelectorAll(".tab");
 
     function render(filter = "") {
       links.innerHTML = "";
 
-      const filteredSites = websites.filter(site => {
-        const name = String(site[0] || "").toLowerCase();
-        const tab = String(site[3] || "main").toLowerCase();
-        const searchText = filter.toLowerCase();
-
-        return tab === selectedTab &&
-          name.includes(searchText);
+      const results = websites.filter(site => {
+        const name = site[0].toLowerCase();
+        return site[3] === selectedTab &&
+          name.includes(filter.toLowerCase());
       });
 
-      if (filteredSites.length === 0) {
+      if (results.length === 0) {
         links.innerHTML = `
-          <p style="color:#a2a2a8;">
-            No links found.
-          </p>
+          <p style="color:#a2a2a8;">No links found.</p>
         `;
         return;
       }
 
-      filteredSites.forEach(site => {
+      results.forEach(site => {
         const card = document.createElement("button");
         card.className = "link-card";
 
         const icon = document.createElement("div");
         icon.className = "icon";
-        icon.textContent = site[2] || site[0].charAt(0).toUpperCase();
+        icon.textContent = site[2];
 
         const title = document.createElement("h3");
         title.textContent = site[0];
@@ -552,7 +526,7 @@
       }
     };
 
-    function escapeArrayText(value) {
+    function escapeValue(value) {
       return value
         .replace(/\\/g, "\\\\")
         .replace(/"/g, '\\"')
@@ -572,10 +546,10 @@
       const icon = name.charAt(0).toUpperCase();
 
       generatedArray.value =
-        `["${escapeArrayText(name)}", ` +
-        `"${escapeArrayText(url)}", ` +
-        `"${escapeArrayText(icon)}", ` +
-        `"${escapeArrayText(tab)}"],`;
+        `["${escapeValue(name)}", ` +
+        `"${escapeValue(url)}", ` +
+        `"${icon}", ` +
+        `"${escapeValue(tab)}"],`;
     }
 
     linkName.oninput = generateArray;
@@ -586,7 +560,6 @@
       if (!generatedArray.value) return;
 
       await navigator.clipboard.writeText(generatedArray.value);
-
       copyArray.textContent = "copied";
 
       setTimeout(() => {
@@ -594,7 +567,7 @@
       }, 1200);
     };
 
-    loadWebsites();
+    render();
 
     const canvas = document.getElementById("snow");
     const ctx = canvas.getContext("2d");
